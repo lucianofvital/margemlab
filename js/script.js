@@ -205,12 +205,12 @@ const QRStudio = {
 };
 
 // ==========================================
-// 2. MARGEM ZINE (Preservado)
+// 2. MARGEM ZINE (Corrigido)
 // ==========================================
 const MargemZine = {
     state: {
         title: 'Manifesto Independente',
-        font: 'font-sans',
+        font: 'sans', // FIX: Alterado de 'font-sans' para 'sans' para bater com o dicionário
         palette: 'pb',
         pages: [],
         activePageId: null
@@ -652,7 +652,7 @@ const MargemZine = {
 };
 
 // ==========================================
-// 2, 3, 4, 5, 6, 7 e 8 (Documenta, PDF, Certifica, Imagem, Texto, QR e Sorteador MANTIDOS IDÊNTICOS da Iteração Anterior)
+// 3, 4, 5, 6, 7 e 8 (Documenta, PDF, Certifica, Imagem, Texto, QR e Sorteador MANTIDOS)
 // ==========================================
 
 const PDFToolLegacy = {
@@ -1108,7 +1108,7 @@ const Documenta = {
             id: 'contrato',
             name: 'Contrato Simples de Serviço',
             category: 'Jurídico',
-            content: `**CONTRATO DE PRESTAÇÃO DE SERVIÇOS**\n\n**CONTRATANTE:** {{NOME_CONTRATANTE}}, inscrito no CPF/CNPJ sob o nº {{DOC_CONTRATANTE}}, residente/sediado em {{ENDERECO_CONTRATANTE}}.\n\n**CONTRATADO(A):** {{NOME_CONTRATADO}}, inscrito no CPF/CNPJ sob o nº {{DOC_CONTRATADO}}.\n\nAs partes acima identificadas têm, entre si, justo e acertado o presente Contrato de Prestação de Serviços, que se regerá pelas cláusulas a seguir:\n\n**Cláusula 1 - Objeto:** O CONTRATADO obriga-se a prestar os serviços de {{DESCRICAO_SERVICO}}.\n\n**Cláusula 2 - Valor:** Pela prestação dos serviços, a CONTRATANTE pagará o valor de **R$ {{VALOR_TOTAL}}**.\n\n**Cláusula 3 - Prazo:** O serviço será concluído até o dia {{DATA_DE_ENTREGA}}.\n\nE, por estarem de pleno acordo, assinam o presente contrato.\n\n{{CIDADE_ESTADO}}, {{DATA_ATUAL}}\n\n\n_________________________________\n{{NOME_CONTRATANTE}} (Contratante)\n\n_________________________________\n{{NOME_CONTRATADO}} (Contratado)`
+            content: `**CONTRATO DE PRESTAÇÃO DE SERVIÇOS**\n\n**CONTRATANTE:** {{NOME_CONTRATANTE}}, inscrito no CPF/CNPJ sob o nº {{DOC_CONTRATANTE}}, residente/sediado em {{ENDERECO_CONTRATANTE}}.\n\n**CONTRATADO(A):** {{NOME_CONTRATADO}}, inscrito no CPF/CNPJ sob o nº {{DOC_CONTRATADO}}.\n\nAs partes acima identificadas têm, entre si, justo e acertado o presente Contrato de Prestação de Serviços, que se regerá pelas cláusulas a seguir:\n\n**Cláusula 1 - Objeto:** O CONTRATADO obriga-se a prestador os serviços de {{DESCRICAO_SERVICO}}.\n\n**Cláusula 2 - Valor:** Pela prestação dos serviços, a CONTRATANTE pagará o valor de **R$ {{VALOR_TOTAL}}**.\n\n**Cláusula 3 - Prazo:** O serviço será concluído até o dia {{DATA_DE_ENTREGA}}.\n\nE, por estarem de pleno acordo, assinam o presente contrato.\n\n{{CIDADE_ESTADO}}, {{DATA_ATUAL}}\n\n\n_________________________________\n{{NOME_CONTRATANTE}} (Contratante)\n\n_________________________________\n{{NOME_CONTRATADO}} (Contratado)`
         },
         {
             id: 'recibo',
@@ -2111,4 +2111,3 @@ document.addEventListener('DOMContentLoaded', () => {
     Router.init();
     lucide.createIcons();
 });
-
