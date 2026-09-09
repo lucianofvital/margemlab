@@ -1,0 +1,181 @@
+/* ==========================================
+   MARGEMLAB - DESIGN SYSTEM & UTILITIES
+   ========================================== */
+
+:root {
+    --transition-snappy: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body { 
+    -webkit-tap-highlight-color: transparent; 
+    text-rendering: optimizeLegibility; 
+    -webkit-font-smoothing: antialiased; 
+}
+
+/* Padrão de ruído sutil de fundo para textura premium */
+body::before { 
+    content: ''; 
+    position: fixed; 
+    inset: 0; 
+    z-index: 0; 
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E"); 
+    opacity: 0.8; 
+    pointer-events: none; 
+}
+
+.dark body::before { 
+    opacity: 0.4; 
+}
+
+/* Scrollbar Customizada Minimalista */
+::-webkit-scrollbar { 
+    width: 6px; 
+    height: 6px; 
+}
+::-webkit-scrollbar-track { 
+    background: transparent; 
+}
+::-webkit-scrollbar-thumb { 
+    background: #d4d4d8; 
+    border-radius: 10px; 
+}
+.dark ::-webkit-scrollbar-thumb { 
+    background: #3f3f46; 
+}
+
+/* ==========================================
+   COMPONENTES REUTILIZÁVEIS
+   ========================================== */
+
+/* Inputs */
+.input-premium { 
+    @apply w-full bg-transparent border border-base-200 dark:border-base-800 text-base-900 dark:text-base-100 rounded-xl p-3 text-sm outline-none transition-all duration-300; 
+}
+.input-premium:focus {
+    @apply border-base-900 dark:border-base-100 ring-1 ring-base-900 dark:ring-base-100;
+}
+
+/* Botões */
+.btn-primary { 
+    @apply relative flex items-center justify-center gap-2 bg-base-900 dark:bg-base-100 text-base-50 dark:text-base-900 font-medium rounded-xl p-3 text-sm transition-all duration-300 w-full hover:opacity-90 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed; 
+}
+
+.btn-secondary { 
+    @apply relative flex items-center justify-center gap-2 bg-transparent border border-base-200 dark:border-base-800 text-base-900 dark:text-base-100 font-medium rounded-xl p-3 text-sm transition-all duration-300 w-full hover:bg-base-100 dark:hover:bg-base-800 active:scale-[0.98]; 
+}
+
+/* Cards Premium para as Ferramentas (Home) */
+.tool-card {
+    @apply block bg-white dark:bg-base-900/50 backdrop-blur-sm p-6 rounded-2xl border border-base-200 dark:border-base-800 transition-all duration-300 relative overflow-hidden group;
+}
+.tool-card:hover {
+    @apply border-base-300 dark:border-base-700 shadow-premium dark:shadow-premium-dark -translate-y-1;
+}
+
+/* Seções de Formulário (Substituindo os painéis do dashboard) */
+.form-section {
+    @apply bg-transparent border border-base-200 dark:border-base-800 p-6 md:p-8 rounded-2xl;
+}
+
+/* ==========================================
+   COMPONENTES ESPECÍFICOS (Preservados do VitalLab)
+   ========================================== */
+
+/* Mockup de Celular (Web2App) */
+.mockup-phone { 
+    width: 260px; 
+    height: 520px; 
+    border: 10px solid #18181b; 
+    border-radius: 36px; 
+    position: relative; 
+    overflow: hidden; 
+    background: #fff; 
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); 
+    margin: 0 auto; 
+}
+.dark .mockup-phone { 
+    border-color: #27272a; 
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+}
+.mockup-notch { 
+    position: absolute; 
+    top: 0; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: 100px; 
+    height: 24px; 
+    background: #18181b; 
+    border-bottom-left-radius: 12px; 
+    border-bottom-right-radius: 12px; 
+    z-index: 20; 
+}
+.dark .mockup-notch { background: #27272a; }
+.mockup-header { 
+    height: 60px; 
+    display: flex; 
+    align-items: flex-end; 
+    padding: 12px 16px; 
+    font-weight: 600; 
+    color: white; 
+    z-index: 10; 
+    position: relative; 
+    transition: background 0.3s; 
+}
+.mockup-splash { 
+    position: absolute; 
+    inset: 0; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    z-index: 15; 
+    transition: background 0.3s; 
+}
+.mockup-splash img { 
+    width: 80px; 
+    height: 80px; 
+    border-radius: 16px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+}
+.mockup-content { 
+    padding: 20px; 
+}
+
+/* Range Inputs */
+input[type=range] { 
+    -webkit-appearance: none; 
+    width: 100%; 
+    background: transparent; 
+}
+input[type=range]::-webkit-slider-thumb { 
+    -webkit-appearance: none; 
+    height: 16px; 
+    width: 16px; 
+    border-radius: 50%; 
+    background: #18181b; 
+    cursor: pointer; 
+    margin-top: -6px;
+    border: 2px solid white;
+}
+.dark input[type=range]::-webkit-slider-thumb {
+    background: white;
+    border-color: #18181b;
+}
+input[type=range]::-webkit-slider-runnable-track { 
+    width: 100%; 
+    height: 4px; 
+    cursor: pointer; 
+    background: #e4e4e7; 
+    border-radius: 2px; 
+}
+.dark input[type=range]::-webkit-slider-runnable-track { 
+    background: #3f3f46; 
+}
+
+/* Steps (Guide) */
+.step-card { 
+    @apply p-5 relative overflow-hidden; 
+}
+.step-number { 
+    @apply absolute -top-4 -right-2 text-7xl font-bold text-base-900/[0.03] dark:text-white/[0.02] pointer-events-none; 
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>MargemLab — Ferramentas para criar fora da margem</title>
+    <meta name="description" content="Laboratório de ferramentas web úteis, open source e gratuitas para criação, produtividade, documentos e design.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bibliotecas Open Source Client-Side -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Inter"', 'system-ui', 'sans-serif'] },
+                    colors: {
+                        base: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1a1aa', 500: '#71717a', 600: '#52525b', 700: '#3f3f46', 800: '#27272a', 900: '#18181b', 950: '#09090b' },
+                    },
+                    animation: { 'fade-in': 'fadeIn 0.3s ease-out' },
+                    keyframes: { fadeIn: { '0%': { opacity: '0', transform: 'translateY(10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } } }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { -webkit-font-smoothing: antialiased; }
+        .input-premium {
+            width: 100%; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem;
+            background-color: theme('colors.white'); border: 1px solid theme('colors.base.200');
+            transition: all 0.2s; outline: none;
+        }
+        .dark .input-premium {
+            background-color: theme('colors.base.900'); border-color: theme('colors.base.800'); color: theme('colors.white');
+        }
+        .input-premium:focus { border-color: theme('colors.base.900'); box-shadow: 0 0 0 2px theme('colors.base.900' / 10%); }
+        .dark .input-premium:focus { border-color: theme('colors.white'); box-shadow: 0 0 0 2px theme('colors.white' / 10%); }
+        .btn-primary {
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+            padding: 0.75rem 1.5rem; border-radius: 0.75rem; font-weight: 600; font-size: 0.875rem;
+            background-color: theme('colors.base.900'); color: theme('colors.white'); transition: all 0.2s; cursor: pointer;
+        }
+        .dark .btn-primary { background-color: theme('colors.white'); color: theme('colors.base.900'); }
+        .btn-primary:hover { transform: translateY(-1px); opacity: 0.9; }
+        .btn-primary:active { transform: translateY(0); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+        .form-section { background: theme('colors.white'); padding: 2rem; border-radius: 1.5rem; border: 1px solid theme('colors.base.200'); margin-bottom: 1.5rem; }
+        .dark .form-section { background: theme('colors.base.900' / 40%); border-color: theme('colors.base.800'); }
+        
+        @media print {
+            body * { visibility: hidden; }
+            #print-area, #print-area * { visibility: visible; }
+            #print-area { position: absolute; left: 0; top: 0; width: 100%; background: white !important; color: black !important; }
+        }
+    </style>
+</head>
+<body class="bg-base-50 dark:bg-base-950 text-base-900 dark:text-base-100 font-sans min-h-screen flex flex-col transition-colors duration-300">
+
+    <header class="sticky top-0 z-50 bg-base-50/80 dark:bg-base-950/80 backdrop-blur-md border-b border-base-200 dark:border-base-800 transition-colors">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-8">
+                <a href="#home" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 rounded-lg bg-base-900 dark:bg-base-100 flex items-center justify-center text-base-50 dark:text-base-950 font-bold text-sm transition-transform group-hover:scale-105">M</div>
+                    <span class="font-bold tracking-tight text-lg">MargemLab</span>
+                </a>
+                <nav class="hidden md:flex items-center gap-6">
+                    <a href="#home" class="text-sm font-medium text-base-500 hover:text-base-900 dark:text-base-400 dark:hover:text-base-50 transition-colors">Ferramentas</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="theme-toggle p-2 rounded-lg hover:bg-base-200 dark:hover:bg-base-800 transition-colors text-base-600 dark:text-base-400">
+                    <i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i>
+                    <i data-lucide="moon" class="w-4 h-4 block dark:hidden"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 w-full relative z-10" id="main-scroll">
+        <div id="app-view"></div>
+    </main>
+
+    <footer class="border-t border-base-200 dark:border-base-800 bg-base-50 dark:bg-base-950 mt-auto">
+        <div class="max-w-6xl mx-auto px-6 py-12">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-6 h-6 rounded bg-base-900 dark:bg-base-100 flex items-center justify-center text-base-50 dark:text-base-950 font-bold text-[10px]">M</div>
+                        <span class="font-bold text-base">MargemLab v1.0</span>
+                    </div>
+                    <p class="text-sm text-base-500 dark:text-base-400">Laboratório de ferramentas web open source para criar fora da margem.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
+    
+    <!-- Renderizadores ocultos -->
+    <div id="print-area" class="hidden"></div>
+    <div id="zine-export-area" style="position: absolute; left: -9999px; top: 0; pointer-events: none;"></div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
